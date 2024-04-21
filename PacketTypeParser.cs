@@ -80,7 +80,7 @@ public class PacketTypeParser
             }
         }
         // if icmp6 is selected, try to get mld if present
-        if (icmpV6Packet != null && Program.Options.Mld) 
+        if (icmpV6Packet != null && (Program.Options.Mld || Program.Options.IsCapAll())) 
         {
             var type = icmpV6Packet.Type;
             // check if type is one of the MLD types
@@ -93,7 +93,7 @@ public class PacketTypeParser
             }
         }
         // if icmp6 is selected, try to get ndp if presentq
-        if (icmpV6Packet != null && Program.Options.Ndp)
+        if (icmpV6Packet != null && (Program.Options.Ndp || Program.Options.IsCapAll()))
         {
             var type = icmpV6Packet.Type;
             // check if type is one of the NDP types
