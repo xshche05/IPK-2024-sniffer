@@ -18,19 +18,19 @@ public class Options
         "   --mld: Display only MLD packets (subset of ICMPv6).\n" +
         "   -n 10: Specify number of packets to display (default: 1).\n" +
         "   All protocols considered unless explicitly specified.";
-    public string? Interface { get; set; } = null;
-    public bool Tcp { get; set; }
-    public bool Udp { get; set; }
-    public int Port { get; set; } = 0;
-    public int PortDestination { get; set; } = 0;
-    public int PortSource { get; set; } = 0;
-    public bool Icmp4 { get; set; }
-    public bool Icmp6 { get; set; }
-    public bool Arp { get; set; }
-    public bool Ndp { get; set; }
-    public bool Igmp { get; set; }
-    public bool Mld { get; set; }
-    public int Num { get; set; } = 1;
+    public string? Interface { get; private set; }
+    public bool Tcp { get; private set; }
+    public bool Udp { get; private set; }
+    public int Port { get; private set; }
+    public int PortDestination { get; private set; }
+    public int PortSource { get; private set; }
+    public bool Icmp4 { get; private set; }
+    public bool Icmp6 { get; private set; }
+    public bool Arp { get; private set; }
+    public bool Ndp { get; private set; }
+    public bool Igmp { get; private set; }
+    public bool Mld { get; private set; }
+    public int Num { get; private set; } = 1;
     private string[] _args;
     
     private Options(string[] args)
