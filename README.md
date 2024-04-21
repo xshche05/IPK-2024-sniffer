@@ -2,6 +2,24 @@
 
 An IPK course project, network packet sniffer
 
+## Tests
+
+### MLD Tests
+Following packet was sent to the network:
+```hexdump
+33 33 00 00 00 16 00 15 5d a0 4d 73 86 dd 60 00
+00 00 00 18 3a 01 fe 80 00 00 00 00 00 00 02 15
+5d ff fe a0 4d 73 ff 02 00 00 00 00 00 00 00 00
+00 00 00 00 00 16 83 00 d2 ea 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00
+```
+Reference output of the sniffer should contain:
+
+`src MAC: 00:15:5D:A0:4D:73` - source MAC address \
+`dst MAC: 33:33:00:00:00:16` - destination MAC address \
+`frame length: 78 bytes` - frame length \
+`src IP: fe80::215:5dff:fea0:4d73` - source IP address \
+`dst IP: ff02::16` - destination IP address \
 
 ## Bibliography
 [RFC792] POSTEL, J. _Internet Control Message Protocol_ [online]. 1981. DOI: 10.17487/RFC0792. Available at: https://datatracker.ietf.org/doc/html/rfc0792
