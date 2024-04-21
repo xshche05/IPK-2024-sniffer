@@ -1,8 +1,11 @@
 namespace PacketSniffer;
 public static class Program
 {
-    public static void Main()
+    private static Options _options = Options.Parse(new string[0]);
+    public static Options Options => _options;
+    public static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        _options = Options.Parse(args);
+        _options.Validate();
     }
 }
