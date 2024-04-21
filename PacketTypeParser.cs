@@ -2,7 +2,7 @@ using PacketDotNet;
 
 namespace PacketSniffer;
 
-public class PacketTypeParser
+public static class PacketTypeParser
 {   
     /* Gets packet type if selected by options
      * in case of unknown packet type or not selected by options returns PacketType.Ignore
@@ -69,7 +69,7 @@ public class PacketTypeParser
         {
             return PacketType.Icmp4;
         }
-        // try to get icmp6
+        // try to get icmp6 echo request/reply
         var icmpV6Packet = packet.Extract<IcmpV6Packet>();
         if (icmpV6Packet != null && (Program.Options.Icmp6 || Program.Options.IsCapAll()))
         {
@@ -79,7 +79,7 @@ public class PacketTypeParser
                 return PacketType.Icmp6;
             }
         }
-        // if icmp6 is selected, try to get mld if present
+        // if mld is selected, try to get mld if present
         if (icmpV6Packet != null && (Program.Options.Mld || Program.Options.IsCapAll())) 
         {
             var type = icmpV6Packet.Type;
@@ -92,7 +92,7 @@ public class PacketTypeParser
                 return PacketType.Mld;
             }
         }
-        // if icmp6 is selected, try to get ndp if presentq
+        // if ndp is selected, try to get ndp if presentq
         if (icmpV6Packet != null && (Program.Options.Ndp || Program.Options.IsCapAll()))
         {
             var type = icmpV6Packet.Type;

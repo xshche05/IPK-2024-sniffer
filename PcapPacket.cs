@@ -21,10 +21,10 @@ public class PcapPacket
     {
         if (_packetType == PacketType.Ignore)
         {
-            return false;
+            return false; // Packed was ignored
         }
         Console.WriteLine($"timestamp: {TimeStamp}");
-        if (SrcMac != null)
+        if (SrcMac != null) // Print only if presented
         {
             Console.WriteLine($"src MAC: {SrcMac}");
         }
@@ -50,7 +50,7 @@ public class PcapPacket
             Console.WriteLine($"dst port: {DstPort}");
         }
         Console.WriteLine($"\n{HexDump}\n\n");
-        return true;
+        return true; // Packet was printed
     }
     
     private string TimeStamp => _rawCapture.Timeval.Date.ToString("yyyy-MM-dd HH:mm:ss.fffzzz");
@@ -59,6 +59,7 @@ public class PcapPacket
     {
         get
         {
+            // ScrMac is extracted from EthernetPacket or LinuxSllPacket
             var ethernetPacket = _packetData.Extract<EthernetPacket>();
             if (ethernetPacket != null)
             {
@@ -77,6 +78,7 @@ public class PcapPacket
     {
         get
         {
+            // DstMac is extracted from EthernetPacket
             var ethernetPacket = _packetData.Extract<EthernetPacket>();
             if (ethernetPacket != null)
             {
@@ -91,6 +93,7 @@ public class PcapPacket
     {
         get
         {
+            // Port is extracted only in case of TCP or UDP
             TcpPacket? tcpPacket = _packetData.Extract<TcpPacket>();
             if (tcpPacket != null)
             {
@@ -108,6 +111,7 @@ public class PcapPacket
     {
         get
         {
+            // Port is extracted only in case of TCP or UDP
             TcpPacket? tcpPacket = _packetData.Extract<TcpPacket>();
             if (tcpPacket != null)
             {
@@ -121,6 +125,8 @@ public class PcapPacket
             return null;
         }
     }
+    
+    // Format MAC address from 001122334455 to 00:11:22:33:44:55
     private string? FormatMac(string? unformattedMac)
     {
         if (unformattedMac == null)
@@ -140,7 +146,7 @@ public class PcapPacket
         {
             if (i % 16 == 0)
             {
-                hex.Append($"0x{offset:X4}: ");
+                hex.Append($"0x{offset:X4}:  ");
                 offset += 16;
             }
             hex.Append($"{data[i]:X2} ");
@@ -154,7 +160,7 @@ public class PcapPacket
             }
             if ((i + 1) % 16 == 0)
             {
-                hex.Append(ascii);
+                hex.Append(" "+ascii);
                 hex.Append("\n");
                 ascii.Clear();
             }
@@ -162,7 +168,7 @@ public class PcapPacket
         if (ascii.Length > 0)
         {
             hex.Append(new string(' ', 3 * (16 - ascii.Length)));
-            hex.Append(ascii);
+            hex.Append(" "+ascii);
             hex.Append("\n");
         }
         return hex.ToString();

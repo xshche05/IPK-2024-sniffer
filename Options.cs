@@ -40,6 +40,7 @@ public class Options
 
     public static Options Parse(string[] args)
     {
+        // Parse command line arguments
         var options = new Options(args);
         for (int i = 0; i < args.Length; i++)
         {
@@ -137,15 +138,18 @@ public class Options
     
     public void Validate()
     {
+        // If no interface is specified, no other options are allowed
         if (Interface == null && _args.Length != 1)
             throw new ApplicationException("not allowed options without interface specified");
+        // port filter is not allowed with port source or port destination
         if (Port != 0 && (PortSource != 0 || PortDestination != 0))
             throw new ApplicationException("port filter with port and port source or port destination");
+        // if port filter is specified, protocol udp or tcp must be specified
         if ((Port != 0 || PortSource != 0 || PortDestination != 0) && !Tcp && !Udp)
             throw new ApplicationException("port filter without TCP/UDP protocol");
     }
     
-    public bool IsCapAll()
+    public bool IsCapAll() // if no protocol is specified, capture all
     {
         return !Tcp && !Udp && !Icmp4 && !Icmp6 && !Arp && !Ndp && !Igmp && !Mld;
     }

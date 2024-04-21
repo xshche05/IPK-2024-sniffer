@@ -6,6 +6,7 @@ public static class Program
 {
     private static Options _options = null!;
     public static Options Options => _options;
+    // Interface to capture packets on
     public static LibPcapLiveDevice Interface { get; private set; } = null!;
     public static void Main(string[] args)
     {
@@ -15,8 +16,8 @@ public static class Program
             Console.Error.NewLine = "\n";
             Console.Out.NewLine = "\n";
 
-            _options = Options.Parse(args);
-            _options.Validate();
+            _options = Options.Parse(args); // Parse command line arguments
+            _options.Validate(); // Validate the arguments, throw an exception if conflicts are found
 
             if (_options.Interface is null)
             {
@@ -31,7 +32,7 @@ public static class Program
                 Environment.Exit(0);
             }
 
-            // Find the interface by name
+            // Find the interface by name, throw an exception if not found
             var interfaceDevice = CaptureDeviceList.Instance.FirstOrDefault(d => d?.Name == _options.Interface, null);
             Interface = interfaceDevice as LibPcapLiveDevice ??
                         throw new ApplicationException("Interface not found, invalid name!");
@@ -39,6 +40,7 @@ public static class Program
         }
         catch (Exception e)
         {
+            // Print error message and exit
             Console.Error.WriteLine(e.Message);
             Environment.Exit(1);
         }
