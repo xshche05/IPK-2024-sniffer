@@ -10,9 +10,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CommandLineParser" Version="2.9.1" />
       <PackageReference Include="PacketDotNet" Version="1.4.7" />
       <PackageReference Include="SharpPcap" Version="6.3.0" />
     </ItemGroup>
+
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <DebugSymbols>False</DebugSymbols>
+        <DebugType>None</DebugType>
+        <PublishSingleFile>True</PublishSingleFile>
+    </PropertyGroup>
 
 </Project>
