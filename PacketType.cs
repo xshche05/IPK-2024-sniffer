@@ -10,5 +10,5 @@ public enum PacketType
     Ndp,
     Igmp,
     Mld,
-    Unknown
+    Ignore
 }
