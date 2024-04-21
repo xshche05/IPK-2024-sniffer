@@ -73,7 +73,11 @@ public class PacketTypeParser
         var icmpV6Packet = packet.Extract<IcmpV6Packet>();
         if (icmpV6Packet != null && (Program.Options.Icmp6 || Program.Options.IsCapAll()))
         {
-            return PacketType.Icmp6;
+            if (icmpV6Packet.Type == IcmpV6Type.EchoReply
+                || icmpV6Packet.Type == IcmpV6Type.EchoRequest)
+            {
+                return PacketType.Icmp6;
+            }
         }
         // if icmp6 is selected, try to get mld if present
         if (icmpV6Packet != null && Program.Options.Mld) 
