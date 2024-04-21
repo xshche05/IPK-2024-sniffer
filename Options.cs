@@ -139,7 +139,7 @@ public class Options
     public void Validate()
     {
         // If no interface is specified, no other options are allowed
-        if (Interface == null && _args.Length != 1)
+        if (Interface == null && _args.Length > 1)
             throw new ApplicationException("not allowed options without interface specified");
         // port filter is not allowed with port source or port destination
         if (Port != 0 && (PortSource != 0 || PortDestination != 0))
