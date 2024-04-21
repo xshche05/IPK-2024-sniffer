@@ -36,10 +36,11 @@ public static class Pcap
                 return;
             }
             // parse the packet
-            
+            var rawPacket = e.GetPacket();
+            PcapPacket packet = new PcapPacket(rawPacket);
             // print the packet
-            
             // if printed, increment the number of captured packets
+            if (packet.Print()) _numOfCapturedPackets++;
         }
     }
 }
