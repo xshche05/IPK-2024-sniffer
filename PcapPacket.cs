@@ -32,7 +32,7 @@ public class PcapPacket
         {
             Console.WriteLine($"dst MAC: {DstMac}");
         }
-        Console.WriteLine($"frame length: {_packetData.Bytes.Length} bytes");
+        Console.WriteLine($"frame length: {_rawCapture.PacketLength} bytes");
         if (SrcIp != null)
         {
             Console.WriteLine($"src IP: {SrcIp}");
@@ -54,10 +54,9 @@ public class PcapPacket
     }
     
     private string TimeStamp => _rawCapture.Timeval.Date.ToString("yyyy-MM-dd HH:mm:ss.fffzzz");
-    private string HexDump => GetHexDump(_packetData.Bytes);
+    private string HexDump => GetHexDump(_rawCapture.Data);
     public string? SrcMac
     {
-        // todo add support for other link layer types
         get
         {
             var ethernetPacket = _packetData.Extract<EthernetPacket>();
@@ -76,7 +75,6 @@ public class PcapPacket
     }
     public string? DstMac
     {
-        // todo add support for other link layer types
         get
         {
             var ethernetPacket = _packetData.Extract<EthernetPacket>();
