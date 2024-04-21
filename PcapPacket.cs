@@ -65,6 +65,12 @@ public class PcapPacket
             {
                 return FormatMac(ethernetPacket.SourceHardwareAddress.ToString());
             }
+            var linuxSllPacket = _packetData.Extract<LinuxSllPacket>();
+            if (linuxSllPacket != null)
+            {
+                var mac = BitConverter.ToString(linuxSllPacket.LinkLayerAddress, 0);
+                return FormatMac(mac.Replace("-", null));
+            }
             return null;
         }
     }
