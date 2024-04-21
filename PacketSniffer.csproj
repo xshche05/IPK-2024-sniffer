@@ -5,6 +5,8 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <AssemblyName>ipk-sniffer</AssemblyName>
+        <RootNamespace>PacketSniffer</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
