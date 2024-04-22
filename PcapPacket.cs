@@ -80,7 +80,9 @@ public class PcapPacket
         }
     }
     
-    private string TimeStamp => _rawCapture.Timeval.Date.ToString("yyyy-MM-dd HH:mm:ss.fffzzz");
+    
+    // time in RFC3339 format
+    private string TimeStamp => _rawCapture.Timeval.Date.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffzzz");
     private string HexDump => GetHexDump(_rawCapture.Data);
     public string? SrcMac
     {
