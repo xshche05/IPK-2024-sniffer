@@ -2,6 +2,47 @@
 
 An IPK course project, network packet sniffer
 
+## Introduction
+A sniffer application, also known as a packet analyzer or network analyzer, is a software tool used to monitor and
+analyze network traffic in real-time. It captures packets traversing a network interface, allowing users to inspect,
+analyze, and troubleshoot network communications. Sniffer applications are widely used for various purposes such as
+network troubleshooting. This project aims to implement a simple sniffer application that can capture and analyze
+network packets according to the user's requirements. All captured packets' data is parsed according to packet type
+specification and printed to the standard output in a human-readable format.
+
+## Technologies involved
+
+### Packet capturing
+- **Libpcap**: This is library that provide packet capture capabilities on Unix-like systems.
+They allow the sniffer application to capture packets from the network interface.
+
+- **Promiscuous Mode**: This mode allows the network interface to capture all packets on the network, regardless of their 
+destination MAC address. It is essential for sniffing traffic not intended for the host.
+
+### Protocol analysis
+- **Ethernet**: The Ethernet protocol is used to transmit data packets between network devices. It is the most common
+data link layer protocol used in local area networks (LANs). The sniffer application must be able to parse Ethernet
+headers to extract information such as source and destination MAC addresses.
+- **IPv4/IPv6**: The Internet Protocol (IP) is used to route data packets across networks. The sniffer application must
+be able to parse IP headers to extract information such as source and destination IP addresses.
+- **ICMPv4/ICMPv6**: The Internet Control Message Protocol (ICMP) is used to send error messages and operational
+information between network devices. The sniffer application must be able to parse ICMP headers to extract information and 
+in case of ICMPv6, it must be able to distinguish between different types of ICMPv6 packets.
+- **ARP/NDP**: The Address Resolution Protocol (ARP) and Neighbor Discovery Protocol (NDP) are used to map IP addresses
+to MAC addresses on local networks.
+- **IGMP/MLD**: The Internet Group Management Protocol (IGMP) and Multicast Listener Discovery (MLD) are used to manage
+multicast group membership on local networks.
+- **TCP/UDP**: The Transmission Control Protocol (TCP) and User Datagram Protocol (UDP) are used to transmit data between
+network devices. The sniffer application must be able to parse TCP and UDP headers to extract information such as source
+and destination port numbers.
+
+### Implementation
+- The sniffer application needs to utilize a packet capture library like Libpcap to capture packets from the network 
+interface specified with -i or --interface.
+- It then applies filtering based on the specified parameters to select the desired packets for display.
+- The application analyzes the packet headers according to the selected protocols and functionalities to extract relevant information.
+- Finally, it displays the filtered packets in a human-readable format to the standard output.
+
 ## Tests
 In this section, we will describe the tests that were performed on the sniffer. For testing purposes, `wireshark` is used 
 to capture packets and send them to the network. The sniffer was then used to capture the packets and print the output.
