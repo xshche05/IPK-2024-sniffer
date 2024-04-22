@@ -22,12 +22,12 @@ destination MAC address. It is essential for sniffing traffic not intended for t
 ### Protocol analysis
 - **Ethernet**: The Ethernet protocol is used to transmit data packets between network devices. It is the most common
 data link layer protocol used in local area networks (LANs). The sniffer application must be able to parse Ethernet
-headers to extract information such as source and destination MAC addresses.
+headers to extract information such as source and destination MAC addresses. [RFC826]
 - **IPv4/IPv6**: The Internet Protocol (IP) is used to route data packets across networks. The sniffer application must
 be able to parse IP headers to extract information such as source and destination IP addresses.
 - **ICMPv4/ICMPv6**: The Internet Control Message Protocol (ICMP) is used to send error messages and operational
 information between network devices. The sniffer application must be able to parse ICMP headers to extract information and 
-in case of ICMPv6, it must be able to distinguish between different types of ICMPv6 packets.
+in case of ICMPv6, it must be able to distinguish between different types of ICMPv6 packets. [RFC792] [RFC4443]
 - **ARP/NDP**: The Address Resolution Protocol (ARP) and Neighbor Discovery Protocol (NDP) are used to map IP addresses
 to MAC addresses on local networks.
 - **IGMP/MLD**: The Internet Group Management Protocol (IGMP) and Multicast Listener Discovery (MLD) are used to manage
@@ -86,7 +86,7 @@ Reference output (in case of `mld` sniffing) of the sniffer should contain follo
 - `dst IP: ff02::16` - destination IP address
 - `frame length: 78 bytes` - frame length
 
-Additionally, sniffer should print the packet timestamp, hexdump and ascii dumps.
+Additionally, sniffer should print the packet timestamp [RFC3339], hexdump and ascii dumps.
 
 #### Sniffer output
 Following output was produced by the sniffer (`mld` sniffing):
@@ -128,7 +128,7 @@ Reference output (in case of `ndp` sniffing) of the sniffer should contain follo
 - `dst IP: ff02::1` - destination IP address
 - `frame length: 78 bytes` - frame length
 
-Additionally, sniffer should print the packet timestamp, hexdump and ascii dumps.
+Additionally, sniffer should print the packet timestamp [RFC3339], hexdump and ascii dumps.
 
 #### Sniffer output
 Following output was produced by the sniffer (`ndp` sniffing):
@@ -182,7 +182,7 @@ Reference output (in case of `icmp6` sniffing) of the sniffer should contain onl
 - `dst IP: ff02::1` - destination IP address
 - `frame length: 62 bytes` - frame length
 
-Additionally, sniffer should print the packet timestamp, hexdump and ascii dumps.
+Additionally, sniffer should print the packet timestamp [RFC3339] , hexdump and ascii dumps.
 
 #### Sniffer output
 Following output was produced by the sniffer (`icmp6` sniffing):
