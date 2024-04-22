@@ -8,5 +8,8 @@ build: *.cs *.csproj
 clean:
 	rm -rf bin obj
 
+dos2unix:
+	dos2unix *.cs *.csproj Makefile LICENSE README.md CHANGELOG
+
 pack: *.cs *.csproj
-	zip $(XLOGIN).zip -r Makefile *.cs *.csproj LICENSE README.md
+	zip $(XLOGIN).zip -r Makefile *.cs *.csproj LICENSE README.md CHANGELOG diagram.png
