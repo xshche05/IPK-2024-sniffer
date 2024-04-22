@@ -25,7 +25,7 @@ public static class Program
                 var devices = CaptureDeviceList.Instance.ToList();
                 foreach (var device in devices)
                 {
-                    Console.WriteLine($"{device.Name} - {device.Description}");
+                    Console.WriteLine($"{device.Name}");
                 }
 
                 // Exit the program
