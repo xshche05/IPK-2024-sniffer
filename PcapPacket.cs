@@ -24,6 +24,7 @@ public class PcapPacket
             return false; // Packed was ignored
         }
         Console.WriteLine($"timestamp: {TimeStamp}");
+        PrintEthernetOrLinuxSll();
         if (SrcMac != null) // Print only if presented
         {
             Console.WriteLine($"src MAC: {SrcMac}");
@@ -33,6 +34,7 @@ public class PcapPacket
             Console.WriteLine($"dst MAC: {DstMac}");
         }
         Console.WriteLine($"frame length: {_rawCapture.PacketLength} bytes");
+        PrintIpVersion();
         if (SrcIp != null)
         {
             Console.WriteLine($"src IP: {SrcIp}");
@@ -41,6 +43,7 @@ public class PcapPacket
         {
             Console.WriteLine($"dst IP: {DstIp}");
         }
+        Console.WriteLine($"{PacketTypeString}:");
         if (SrcPort != null)
         {
             Console.WriteLine($"src port: {SrcPort}");
@@ -51,6 +54,30 @@ public class PcapPacket
         }
         Console.WriteLine($"\n{HexDump}\n\n");
         return true; // Packet was printed
+    }
+    
+    private void PrintEthernetOrLinuxSll()
+    {
+        var ethernetPacket = _packetData.Extract<EthernetPacket>();
+        if (ethernetPacket != null)
+        {
+            Console.WriteLine("Ethernet II: ");
+            return;
+        }
+        var linuxSllPacket = _packetData.Extract<LinuxSllPacket>();
+        if (linuxSllPacket != null)
+        {
+            Console.WriteLine("Linux Cooked Capture: ");
+        }
+    }
+    
+    private void PrintIpVersion()
+    {
+        var ipPacket = _packetData.Extract<IPPacket>();
+        if (ipPacket != null)
+        {
+            Console.WriteLine($"Internet Protocol Version {(int)ipPacket.Version}:");
+        }
     }
     
     private string TimeStamp => _rawCapture.Timeval.Date.ToString("yyyy-MM-dd HH:mm:ss.fffzzz");
@@ -172,5 +199,32 @@ public class PcapPacket
             hex.Append("\n");
         }
         return hex.ToString();
+    }
+    public string PacketTypeString
+    {
+        get
+        {
+            switch (_packetType)
+            {
+                case PacketType.Tcp:
+                    return "Transmission Control Protocol";
+                case PacketType.Udp:
+                    return "User Datagram Protocol";
+                case PacketType.Icmp4:
+                    return "Internet Control Message Protocol v4";
+                case PacketType.Icmp6:
+                    return "Internet Control Message Protocol v6 Echo Request/Reply";
+                case PacketType.Arp:
+                    return "Address Resolution Protocol";
+                case PacketType.Ndp:
+                    return "Neighbor Discovery Protocol";
+                case PacketType.Igmp:
+                    return "Internet Group Management Protocol";
+                case PacketType.Mld:
+                    return "Multicast Listener Discovery Protocol";
+                default:
+                    return "Unknown or Ignored Packet Type";
+            }
+        }
     }
 }
