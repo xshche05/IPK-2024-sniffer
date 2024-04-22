@@ -112,6 +112,15 @@ public static class PacketTypeParser
         {
             return PacketType.Igmp;
         }
+        // try to get IGMPv1 Membership Report
+        var ipPacket = packet.Extract<IPPacket>();
+        if (ipPacket != null && (Program.Options.Igmp || Program.Options.IsCapAll()))
+        {
+            if (ipPacket.Protocol == ProtocolType.Igmp)
+            {
+                return PacketType.Igmp;
+            }
+        }
         return PacketType.Ignore;
     }
 }
