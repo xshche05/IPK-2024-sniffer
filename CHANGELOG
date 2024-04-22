@@ -1,0 +1,8 @@
+# CHANGELOG
+## Version 1.0.0 (2024-04-22)
+### Implemented Functionality
+- Packet capture and analysis
+- Packet filtering
+- Human-readable output
+### Known Limitations
+In this version no known limitations.
