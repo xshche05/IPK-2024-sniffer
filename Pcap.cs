@@ -43,6 +43,12 @@ public static class Pcap
             // print the packet
             // if printed, increment the number of captured packets
             if (packet.Print()) _numOfCapturedPackets++;
+            if (!(_numOfCapturedPackets < Program.Options.Num))
+            {
+                Program.Interface.StopCapture();
+                Program.Interface.Close();
+                StopSemaphore.Release();
+            }
         }
     }
 }
