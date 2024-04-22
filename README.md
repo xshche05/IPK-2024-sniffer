@@ -43,6 +43,10 @@ interface specified with -i or --interface.
 - The application analyzes the packet headers according to the selected protocols and functionalities to extract relevant information.
 - Finally, it displays the filtered packets in a human-readable format to the standard output.
 
+Implementation of the sniffer application uses the `C#` programming language and `SharpPcap` library, which is a .NET wrapper
+for the Libpcap library. Additionally, the application uses the `PacketDotNet` library to parse packet headers and extract
+information from the captured packets.
+
 ## Tests
 In this section, we will describe the tests that were performed on the sniffer. For testing purposes, `wireshark` is used 
 to capture packets and send them to the network. The sniffer was then used to capture the packets and print the output.
@@ -196,6 +200,11 @@ dst IP: ff02::1
 0x0030:  00 00 00 00 00 01 80 00 D6 0F 00 00 00 00        ..............
 ```
 Nothing else was printed.
+
+## Dependency diagram
+
+![img](./diagram.png "Dependency diagram")
+
 
 ## Bibliography
 [RFC792] POSTEL, J. _Internet Control Message Protocol_ [online]. 1981. DOI: 10.17487/RFC0792. Available at: https://datatracker.ietf.org/doc/html/rfc0792
