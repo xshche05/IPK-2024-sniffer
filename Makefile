@@ -11,5 +11,5 @@ clean:
 dos2unix:
 	dos2unix *.cs *.csproj Makefile LICENSE README.md CHANGELOG
 
-pack: *.cs *.csproj
+pack: *.cs *.csproj dos2unix
 	zip $(XLOGIN).zip -r Makefile *.cs *.csproj LICENSE README.md CHANGELOG diagram.png
